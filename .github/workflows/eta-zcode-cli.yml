@@ -1,0 +1,70 @@
+name: Build Eta ZCode CLI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 360
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.14.0'
+
+      - name: Set up pnpm
+        run: npm install -g pnpm@10.33.2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build ZCode CLI distribution
+        run: pnpm build:zcode --base-url https://github.com/310DSD/ZCode/releases/latest/download/
+
+      - name: Package artifact
+        run: |
+          set -euo pipefail
+          tarball="$(find dist/zcode/releases -name 'zcode-*.tar.gz' -type f -print -quit)"
+          test -n "$tarball"
+          cp "$tarball" dist/eta-zcode-arm64.tar.gz
+          sha256sum dist/eta-zcode-arm64.tar.gz > dist/eta-zcode-arm64.tar.gz.sha256
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: eta-zcode-arm64
+          path: |
+            dist/eta-zcode-arm64.tar.gz
+            dist/eta-zcode-arm64.tar.gz.sha256
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: eta-zcode-arm64
+          path: dist
+
+      - name: Publish latest CLI release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: eta-zcode-latest
+          name: Eta ZCode CLI (latest)
+          body: Automated ARM64 build from the official ZCode source.
+          files: |
+            dist/eta-zcode-arm64.tar.gz
+            dist/eta-zcode-arm64.tar.gz.sha256
+          overwrite_files: true
+          make_latest: true
