@@ -30,6 +30,9 @@ jobs:
       - name: Build workspace packages
         run: pnpm build:bootstrap
 
+      - name: Build shared runtime package
+        run: pnpm exec tsc -p packages/shared/tsconfig.json
+
       - name: Build ZCode CLI distribution
         run: pnpm build:zcode --base-url https://github.com/310DSD/ZCode/releases/latest/download/
 
