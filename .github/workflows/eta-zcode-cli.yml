@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build workspace packages
+        run: pnpm build:bootstrap
+
       - name: Build ZCode CLI distribution
         run: pnpm build:zcode --base-url https://github.com/310DSD/ZCode/releases/latest/download/
 
