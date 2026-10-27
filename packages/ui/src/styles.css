@@ -2380,7 +2380,8 @@ html[data-document-hidden] *::after {
   header[data-testid="workspace-header"] > div {
     height: 52px !important;
     min-width: 0 !important;
-    padding: 4px 6px !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
     gap: 2px !important;
   }
 
@@ -2496,5 +2497,206 @@ html[data-document-hidden] *::after {
   }
   to {
     opacity: 1;
+  }
+}
+
+/* Mobile page surfaces that sit under the floating workspace navigation. */
+@media (max-width: 767px) {
+  main > div.mx-auto,
+  #content main [class*="max-w-4xl"][class*="mx-auto"],
+  #content main [class*="max-w-5xl"][class*="mx-auto"],
+  #content main [class*="max-w-6xl"][class*="mx-auto"] {
+    padding-top: 64px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  body:has([data-testid="settings-page"]) main > div.mx-auto,
+  body:has([data-testid="settings-page"]) #content main [class*="max-w-4xl"][class*="mx-auto"] {
+    padding-top: 12px !important;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  [data-testid^="automations-page-tab-"] {
+    font-size: 22px !important;
+    line-height: 28px !important;
+  }
+
+  /* Settings uses a desktop grid: 68px icon rail + content. On a phone the
+     rail becomes a horizontal section switcher and content takes the full width. */
+  [data-testid="settings-page"] {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+  }
+
+  [data-testid="settings-page"] > aside {
+    flex: none !important;
+    width: 100% !important;
+    height: 56px !important;
+    min-height: 56px !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    background: var(--color-background) !important;
+  }
+
+  [data-testid="settings-page"] > aside > div {
+    display: flex !important;
+    flex-direction: row !important;
+    height: 56px !important;
+    min-height: 56px !important;
+  }
+
+  [data-testid="settings-page"] > aside > div > div:first-child {
+    display: none !important;
+  }
+
+  [data-testid="settings-page"] > aside > div > div:nth-child(2) {
+    flex: none !important;
+    padding: 8px !important;
+  }
+
+  [data-testid="settings-page"] > aside [data-testid="settings-back-button"] {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  [data-testid="settings-page"] > aside nav {
+    flex: 1 !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 8px !important;
+    scrollbar-width: none;
+  }
+
+  [data-testid="settings-page"] > aside nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  [data-testid="settings-page"] > aside nav > div {
+    display: flex !important;
+    gap: 4px !important;
+    min-width: max-content !important;
+  }
+
+  [data-testid="settings-page"] > aside nav [role="group"] {
+    display: flex !important;
+    gap: 4px !important;
+  }
+
+  [data-testid="settings-page"] > aside nav [role="group"] > div:first-child {
+    display: none !important;
+  }
+
+  [data-testid="settings-page"] > aside nav button {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  [data-testid="settings-page"] > section {
+    flex: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  [data-settings-panel-frame="true"] {
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  [data-settings-panel-frame="true"] .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-items: stretch !important;
+  }
+
+  [data-settings-panel-frame="true"] [data-slot="select-trigger"],
+  [data-settings-panel-frame="true"] [data-testid="settings-locale-select-trigger"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  [data-settings-panel-frame="true"] [data-slot="card"] {
+    border-radius: 12px !important;
+  }
+
+  /* Full-width mobile sheets for settings forms and nested selectors. */
+  [data-settings-panel-frame="true"] [role="dialog"] {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+  }
+
+  /* Keep the settings icon rail usable on narrow screens: make it a
+     horizontally scrollable, labelled section switcher instead of 68px icons. */
+  [data-testid="settings-page"] > aside nav button {
+    width: auto !important;
+    min-width: 40px !important;
+    padding: 0 10px !important;
+  }
+
+  [data-testid="settings-page"] > aside nav button > span:last-child {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: nowrap !important;
+  }
+
+  [data-testid="settings-page"] > aside nav button::after {
+    content: attr(aria-label);
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* Menus anchored to controls near the edge should become readable sheets
+     on a phone. Tooltips are intentionally excluded. */
+  [data-radix-popper-content-wrapper]:has(> [data-slot="dropdown-menu-content"]),
+  [data-radix-popper-content-wrapper]:has(> [data-slot="select-content"]),
+  [data-radix-popper-content-wrapper]:has(> [data-slot="popover-content"]) {
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    transform: none !important;
+  }
+
+  [data-radix-popper-content-wrapper]:has(> [data-slot="dropdown-menu-content"]) > *,
+  [data-radix-popper-content-wrapper]:has(> [data-slot="select-content"]) > *,
+  [data-radix-popper-content-wrapper]:has(> [data-slot="popover-content"]) > * {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  [data-slot="dialog-content"] {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: calc(100dvh - 16px) !important;
+    border-radius: 18px !important;
+  }
+
+  [data-side-pane-full-view-host],
+  [data-mobile-side-pane-overlay="true"] {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 100dvh !important;
+  }
+
+  body:has([data-radix-popper-content-wrapper]) .zcode-mobile-top-overlay,
+  body:has([data-slot="dialog-content"]) .zcode-mobile-top-overlay {
+    display: none !important;
   }
 }

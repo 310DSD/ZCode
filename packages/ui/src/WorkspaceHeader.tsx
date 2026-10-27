@@ -80,8 +80,6 @@ export function WorkspaceHeader({
   isDesktop,
   simplifyForNarrowRemote = false,
   isSidebarVisible,
-  onToggleSidebar,
-  showMobileSidebarButton = false,
   isTerminalOpen,
   isSidePaneOpen,
   onRefreshGit,
@@ -130,8 +128,6 @@ export function WorkspaceHeader({
   isDesktop?: boolean;
   simplifyForNarrowRemote?: boolean;
   isSidebarVisible: boolean;
-  onToggleSidebar?: () => void;
-  showMobileSidebarButton?: boolean;
   isTerminalOpen: boolean;
   isSidePaneOpen: boolean;
   onRefreshGit: () => void;
@@ -186,19 +182,6 @@ export function WorkspaceHeader({
           headerWindowControlsPaddingClass,
         )}
       >
-        {showMobileSidebarButton ? (
-          <button
-            type="button"
-            className="zcode-mobile-menu-button"
-            aria-label={isSidebarVisible ? "关闭侧栏" : "打开侧栏"}
-            aria-expanded={isSidebarVisible}
-            onClick={onToggleSidebar}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-            </svg>
-          </button>
-        ) : null}
         {variant === "task" || remoteTarget || workspaceIdentity || remoteSessionId ? (
           <WorkspaceHeaderTitleSection
             variant={variant}
