@@ -592,7 +592,7 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
   useEffect(() => {
     if (didInitMobileSidebarRef.current) return;
     didInitMobileSidebarRef.current = true;
-    if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 1024px)").matches) {
       if (isSidebarVisible) handleToggleSidebar();
     }
   }, [handleToggleSidebar, isSidebarVisible]);
@@ -2292,7 +2292,7 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
             isSidebarPanelVisible && "zcode-mobile-sidebar-open",
           )}
           onClickCapture={() => {
-            if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+            if (typeof window !== "undefined" && window.matchMedia("(max-width: 1024px)").matches) {
               window.setTimeout(handleToggleSidebar, 160);
             }
           }}

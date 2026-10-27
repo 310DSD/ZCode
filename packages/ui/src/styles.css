@@ -2282,10 +2282,10 @@ html[data-document-hidden] *::after {
    The layout is intentionally CSS-first: the only React addition is the
    sidebar button/scrim; no per-token observers or DOM rewriting. */
 .zcode-mobile-top-sidebar-button {
-  display: none;
+  display: none !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   html,
   body,
   #root {
@@ -2483,7 +2483,7 @@ html[data-document-hidden] *::after {
   }
 }
 
-@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+@media (max-width: 1024px) and (prefers-reduced-motion: reduce) {
   #sidebar.zcode-mobile-sidebar,
   .zcode-mobile-scrim {
     animation: none !important;
@@ -2501,7 +2501,7 @@ html[data-document-hidden] *::after {
 }
 
 /* Mobile page surfaces that sit under the floating workspace navigation. */
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   main > div.mx-auto,
   #content main [class*="max-w-4xl"][class*="mx-auto"],
   #content main [class*="max-w-5xl"][class*="mx-auto"],
