@@ -2660,27 +2660,6 @@ html[data-document-hidden] *::after {
     white-space: nowrap;
   }
 
-  /* Menus anchored to controls near the edge should become readable sheets
-     on a phone. Tooltips are intentionally excluded. */
-  [data-radix-popper-content-wrapper]:has(> [data-slot="dropdown-menu-content"]),
-  [data-radix-popper-content-wrapper]:has(> [data-slot="select-content"]),
-  [data-radix-popper-content-wrapper]:has(> [data-slot="popover-content"]) {
-    left: 8px !important;
-    right: 8px !important;
-    width: auto !important;
-    min-width: 0 !important;
-    max-width: none !important;
-    transform: none !important;
-  }
-
-  [data-radix-popper-content-wrapper]:has(> [data-slot="dropdown-menu-content"]) > *,
-  [data-radix-popper-content-wrapper]:has(> [data-slot="select-content"]) > *,
-  [data-radix-popper-content-wrapper]:has(> [data-slot="popover-content"]) > * {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-
   [data-slot="dialog-content"] {
     width: calc(100vw - 16px) !important;
     max-width: calc(100vw - 16px) !important;
