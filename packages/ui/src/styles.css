@@ -2277,3 +2277,214 @@ html[data-document-hidden] *::after {
   [data-sidebar-divider-extension] {
   display: none;
 }
+
+/* Eta mobile shell for ZCode Web.
+   The layout is intentionally CSS-first: the only React addition is the
+   sidebar button/scrim; no per-token observers or DOM rewriting. */
+.zcode-mobile-menu-button {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  html,
+  body,
+  #root {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    overscroll-behavior: none;
+  }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  #sidebar.zcode-mobile-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: min(86vw, 340px) !important;
+    max-width: none !important;
+    height: 100dvh !important;
+    z-index: 80 !important;
+    transform: translate3d(-102%, 0, 0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+    background: var(--color-sidebar, var(--color-background)) !important;
+    border-right: 1px solid var(--color-border) !important;
+    box-shadow: 18px 0 48px rgb(0 0 0 / 18%);
+    transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1) !important;
+    will-change: transform;
+  }
+
+  #sidebar.zcode-mobile-sidebar.zcode-mobile-sidebar-open {
+    transform: translate3d(0, 0, 0) !important;
+    pointer-events: auto !important;
+  }
+
+  #sidebar.zcode-mobile-sidebar > aside {
+    height: 100% !important;
+  }
+
+  .zcode-mobile-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgb(0 0 0 / 38%);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    animation: zcode-mobile-scrim-in 0.18s ease both;
+  }
+
+  .zcode-mobile-menu-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 36px;
+    height: 36px;
+    margin-right: 2px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    color: var(--color-foreground);
+    background: transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .zcode-mobile-menu-button:active {
+    background: var(--color-surface-hover);
+    transform: scale(0.94);
+  }
+
+  header[data-testid="workspace-header"] {
+    min-height: 52px !important;
+    height: 52px !important;
+    padding: 0 !important;
+    background: var(--color-header, var(--color-background)) !important;
+  }
+
+  header[data-testid="workspace-header"] > div {
+    height: 52px !important;
+    min-width: 0 !important;
+    padding: 4px 6px !important;
+    gap: 2px !important;
+  }
+
+  header[data-testid="workspace-header"] [data-testid="workspace-title"] {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 14px !important;
+  }
+
+  header[data-testid="workspace-header"] [data-testid="workspace-help-menu-trigger"],
+  header[data-testid="workspace-header"] [data-testid="workspace-more-button"] {
+    display: none !important;
+  }
+
+  #content {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+  }
+
+  [data-workspace-presentation="workspace"] {
+    min-width: 0 !important;
+  }
+
+  [data-workspace-conversation-frame="true"] {
+    border-radius: 0 !important;
+    border: 0 !important;
+    min-width: 0 !important;
+  }
+
+  [data-workspace-side-frame="true"],
+  [data-workspace-terminal-frame="true"] {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 90 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    background: var(--color-background) !important;
+  }
+
+  [data-composer-layout] {
+    min-width: 0 !important;
+  }
+
+  [data-testid="v4-composer-input"],
+  [data-testid="chat-input"],
+  [contenteditable="true"],
+  textarea {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    max-height: 36dvh !important;
+    overflow-y: auto !important;
+  }
+
+  .chat-composer-input-surface {
+    border-radius: 20px !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+
+  [data-testid="chat-model-select-trigger"] {
+    max-width: 46vw !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  pre,
+  table {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+
+  [role="dialog"] {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+    border-radius: 18px !important;
+  }
+
+  [data-slot="dropdown-menu-content"]:has([data-composer-model-list]),
+  [data-slot="dropdown-menu-content"]:has([data-composer-provider-list]) {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    left: 12px !important;
+    right: 12px !important;
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  #sidebar.zcode-mobile-sidebar,
+  .zcode-mobile-scrim {
+    animation: none !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes zcode-mobile-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

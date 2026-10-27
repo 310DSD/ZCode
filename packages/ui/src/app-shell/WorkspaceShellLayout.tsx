@@ -2069,6 +2069,8 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
                 isDesktop={isDesktop}
                 simplifyForNarrowRemote
                 isSidebarVisible={isSidebarVisible}
+                onToggleSidebar={handleToggleSidebar}
+                showMobileSidebarButton
                 isTerminalOpen={isTerminalOpen}
                 isSidePaneOpen={isSidePaneOpen}
                 onRefreshGit={handleRefreshGit}
@@ -2280,7 +2282,14 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
                   : "max-md:!h-0 max-md:!min-h-0 max-md:!w-full max-md:!max-w-none max-md:!flex-none max-md:!basis-0 max-md:!border-b-0",
               ),
             isSidebarPanelVisible ? "opacity-100" : "pointer-events-none opacity-0",
+            "zcode-mobile-sidebar",
+            isSidebarPanelVisible && "zcode-mobile-sidebar-open",
           )}
+          onClickCapture={() => {
+            if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+              window.setTimeout(handleToggleSidebar, 160);
+            }
+          }}
         >
           {/* Bugfix: 折叠远控顶部导航时保持组件挂载，避免展开后整块 sidebar 重新加载。 */}
           <aside
@@ -2309,6 +2318,14 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
             </ScopedErrorBoundary>
           </aside>
         </div>
+        {isSidebarPanelVisible ? (
+          <button
+            type="button"
+            className="zcode-mobile-scrim"
+            aria-label="关闭侧栏"
+            onClick={handleToggleSidebar}
+          />
+        ) : null}
 
         {isSidebarPanelVisible && renderWebRemoteNavigationPanel ? (
           <div
@@ -2476,6 +2493,8 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
                             isDesktop={isDesktop}
                             simplifyForNarrowRemote={simplifyHeaderForNarrowRemote}
                             isSidebarVisible={isSidebarVisible}
+                            onToggleSidebar={handleToggleSidebar}
+                            showMobileSidebarButton
                             isTerminalOpen={isTerminalOpen}
                             isSidePaneOpen={isSidePaneOpen}
                             onRefreshGit={handleRefreshGit}
