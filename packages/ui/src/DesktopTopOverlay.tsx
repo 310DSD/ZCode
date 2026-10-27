@@ -106,7 +106,7 @@ export function DesktopTopOverlay({
       <div
         style={topOverlayWidthStyle}
         className={cn(
-          "@container/topoverlayer pointer-events-none absolute h-14 flex left-0 top-0 z-20 w-fit",
+          "@container/topoverlayer zcode-mobile-top-overlay pointer-events-none absolute h-14 flex left-0 top-0 z-20 w-fit",
           // 工具组计入各平台顶部留白和 1px 边框，与 Header 中心线对齐。
           usesCustomCaptionArea && "mt-px",
           isWindowsDesktop ? "top-1.5" : isLinuxDesktop && "top-1",
@@ -135,6 +135,17 @@ export function DesktopTopOverlay({
               "pointer-events-auto flex items-center gap-1 shrink-0 [app-region:no-drag]",
             )}
           >
+            <DesktopTopOverlayActionButton
+              title={toggleSidebarTitle}
+              shortcut={toggleSidebarShortcutLabel}
+              ariaLabel={toggleSidebarTitle}
+              testId="desktop-top-mobile-sidebar-toggle"
+              buttonClassName="zcode-mobile-top-sidebar-button"
+              onClick={onToggleSidebar}
+            >
+              <SidebarToggleIcon className="size-4" />
+            </DesktopTopOverlayActionButton>
+
             {usesCustomCaptionArea && (
               <DesktopTopOverlayActionButton
                 title={toggleSidebarTitle}

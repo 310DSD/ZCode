@@ -2077,8 +2077,6 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
                 isDesktop={isDesktop}
                 simplifyForNarrowRemote
                 isSidebarVisible={isSidebarVisible}
-                onToggleSidebar={handleToggleSidebar}
-                showMobileSidebarButton
                 isTerminalOpen={isTerminalOpen}
                 isSidePaneOpen={isSidePaneOpen}
                 onRefreshGit={handleRefreshGit}
@@ -2501,8 +2499,6 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
                             isDesktop={isDesktop}
                             simplifyForNarrowRemote={simplifyHeaderForNarrowRemote}
                             isSidebarVisible={isSidebarVisible}
-                            onToggleSidebar={handleToggleSidebar}
-                            showMobileSidebarButton
                             isTerminalOpen={isTerminalOpen}
                             isSidePaneOpen={isSidePaneOpen}
                             onRefreshGit={handleRefreshGit}

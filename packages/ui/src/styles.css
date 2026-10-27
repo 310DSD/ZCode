@@ -2281,7 +2281,7 @@ html[data-document-hidden] *::after {
 /* Eta mobile shell for ZCode Web.
    The layout is intentionally CSS-first: the only React addition is the
    sidebar button/scrim; no per-token observers or DOM rewriting. */
-.zcode-mobile-menu-button {
+.zcode-mobile-top-sidebar-button {
   display: none;
 }
 
@@ -2344,7 +2344,11 @@ html[data-document-hidden] *::after {
     animation: zcode-mobile-scrim-in 0.18s ease both;
   }
 
-  .zcode-mobile-menu-button {
+  .zcode-mobile-top-overlay {
+    z-index: 85 !important;
+  }
+
+  .zcode-mobile-top-sidebar-button {
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
@@ -2361,7 +2365,7 @@ html[data-document-hidden] *::after {
     -webkit-tap-highlight-color: transparent;
   }
 
-  .zcode-mobile-menu-button:active {
+  .zcode-mobile-top-sidebar-button:active {
     background: var(--color-surface-hover);
     transform: scale(0.94);
   }
@@ -2397,6 +2401,12 @@ html[data-document-hidden] *::after {
     width: 100% !important;
     min-width: 0 !important;
     padding: 0 !important;
+  }
+
+  #content > *,
+  [data-workspace-conversation-frame="true"] > *,
+  [data-workspace-conversation-frame="true"] * {
+    min-width: 0 !important;
   }
 
   [data-workspace-presentation="workspace"] {
