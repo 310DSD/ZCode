@@ -588,6 +588,14 @@ const WorkspaceShellLayoutContent = memo(function WorkspaceShellLayoutComponent(
     activeTaskTitle?.trim() || intl.formatMessage({ id: "taskList.untitled" });
   // 完整视图保留左侧任务列表与左上角按钮组，侧栏显隐只由用户开关决定。
   const isSidebarPanelVisible = isSidebarVisible;
+  const didInitMobileSidebarRef = useRef(false);
+  useEffect(() => {
+    if (didInitMobileSidebarRef.current) return;
+    didInitMobileSidebarRef.current = true;
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+      if (isSidebarVisible) handleToggleSidebar();
+    }
+  }, [handleToggleSidebar, isSidebarVisible]);
   const {
     panelRef: terminalPanelRef,
     panelElementRef: terminalPanelElementRef,
