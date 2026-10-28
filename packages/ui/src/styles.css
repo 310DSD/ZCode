@@ -2679,3 +2679,30 @@ html[data-document-hidden] *::after {
     display: none !important;
   }
 }
+
+/* Mobile model-provider rail: keep provider names readable instead of collapsing
+   every item to an unlabeled 32px icon. The settings panel uses a two-column
+   grid; give the provider rail enough room for its labels. */
+@media (max-width: 1024px) {
+  [data-settings-panel-frame="true"] [class*="grid-cols-[56px_minmax(0,1fr)]"] {
+    grid-template-columns: 156px minmax(0, 1fr) !important;
+  }
+
+  [data-testid^="model-provider-nav-item-"] {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 40px !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    padding: 0 9px !important;
+  }
+
+  [data-testid^="model-provider-nav-item-"] > span {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    clip: auto !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+  }
+}
