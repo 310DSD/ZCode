@@ -2680,12 +2680,22 @@ html[data-document-hidden] *::after {
   }
 }
 
-/* Mobile model-provider rail: keep provider names readable instead of collapsing
-   every item to an unlabeled 32px icon. The settings panel uses a two-column
-   grid; give the provider rail enough room for its labels. */
+/* Mobile model-provider rail: a two-column rail steals too much width from the
+   provider form at phone sizes. Stack the rail above the form and restore the
+   labels that DSH hides with Tailwind's sr-only utility. */
 @media (max-width: 1024px) {
   [data-settings-panel-frame="true"] [class*="grid-cols-[56px_minmax(0,1fr)]"] {
-    grid-template-columns: 156px minmax(0, 1fr) !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-height: 0 !important;
+  }
+
+  [data-settings-panel-frame="true"] [class*="grid-cols-[56px_minmax(0,1fr)]"] > div:first-child {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  [data-settings-panel-frame="true"] [class*="grid-cols-[56px_minmax(0,1fr)]"] > div:first-child aside {
+    padding: 8px 12px !important;
   }
 
   [data-testid^="model-provider-nav-item-"] {
@@ -2697,11 +2707,12 @@ html[data-document-hidden] *::after {
     padding: 0 9px !important;
   }
 
-  [data-testid^="model-provider-nav-item-"] > span {
+  [data-testid^="model-provider-nav-item-"] > span:nth-child(2) {
     position: static !important;
     width: auto !important;
     height: auto !important;
     clip: auto !important;
+    clip-path: none !important;
     overflow: visible !important;
     white-space: nowrap !important;
   }
